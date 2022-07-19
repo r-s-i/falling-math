@@ -1,0 +1,56 @@
+body {
+  background: rgb(111, 111, 111); /*Delete or change when done*/
+}
+header {
+  grid-area: header;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  width: 90vw;
+  max-width: 500px;
+  text-align: center;
+}
+h1 {
+  margin: 0;
+}
+
+#footer {
+  grid-area: footer;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+#game-area {
+  grid-area: gameArea;
+  display: grid;
+}
+
+.row {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.row > section {
+  width: 25%;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+}
+
+
+#grid-container {
+  display: grid;
+  justify-content: center;
+  grid-template-areas: 
+                      "header header header header"
+                      "gameArea gameArea gameArea gameArea"
+                      "gameArea gameArea gameArea gameArea"
+                      "gameArea gameArea gameArea gameArea"
+                      "gameArea gameArea gameArea gameArea"
+                      "footer footer footer footer";
+  grid-gap: 1vh;
+  min-height: 90vh;
+}
+
+
