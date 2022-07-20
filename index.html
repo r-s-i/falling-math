@@ -20,62 +20,64 @@
   <main id="grid-container">
     <header>
       <h1>Math From Heaven</h1>
+      <p>Level: {{level}}</p>
+      <p>Points: {{points}}</p>
     </header>
     <section id="game-area">
       <section class="row">
         <section>
-          {{makeProblem}}
+          {{panesArray[0]}}
         </section>
         <section>
-          2
+          {{panesArray[1]}}
         </section>
         <section>
-          3
+          {{panesArray[2]}}
         </section>
         <section>
-          4
-        </section>
-      </section>
-      <section class="row">
-        <section>
-          1
-        </section>
-        <section>
-          2
-        </section>
-        <section>
-          3
-        </section>
-        <section>
-          4
+          {{panesArray[3]}}
         </section>
       </section>
       <section class="row">
         <section>
-          1
+          {{panesArray[4]}}
         </section>
         <section>
-          2
+          {{panesArray[5]}}
         </section>
         <section>
-          3
+          {{panesArray[6]}}
         </section>
         <section>
-          4
+          {{panesArray[7]}}
         </section>
       </section>
       <section class="row">
         <section>
-          1
+          {{panesArray[8]}}
         </section>
         <section>
-          2
+          {{panesArray[9]}}
         </section>
         <section>
-          3
+          {{panesArray[10]}}
         </section>
         <section>
-          4
+          {{panesArray[11]}}
+        </section>
+      </section>
+      <section class="row">
+        <section  @click="checkAnswer(answersArray[0])">
+          {{answersArray[0]}}
+        </section>
+        <section @click="checkAnswer(answersArray[1])">
+          {{answersArray[1]}}
+        </section>
+        <section @click="checkAnswer(answersArray[2])">
+          {{answersArray[2]}}
+        </section>
+        <section @click="checkAnswer(answersArray[3])">
+          {{answersArray[3]}}
         </section>
       </section>
 

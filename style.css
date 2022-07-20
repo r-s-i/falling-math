@@ -1,5 +1,9 @@
+* {
+  border: 1px solid black;
+}
+
 body {
-  background: rgb(111, 111, 111); /*Delete or change when done*/
+  background: rgb(111, 111, 111); /*Delete or changewhen done*/
 }
 header {
   grid-area: header;
@@ -9,6 +13,7 @@ header {
   width: 90vw;
   max-width: 500px;
   text-align: center;
+  min-height: 10vh;
 }
 h1 {
   margin: 0;
@@ -19,19 +24,21 @@ h1 {
   display: grid;
   justify-content: center;
   align-items: center;
+  min-height: 10vh;
 }
 
 #game-area {
   grid-area: gameArea;
   display: grid;
+  min-height: 60vh;
 }
-
 .row {
   display: flex;
   flex-wrap: nowrap;
 }
 .row > section {
   width: 25%;
+  min-height: 15vh;
   display: grid;
   justify-content: center;
   align-items: center;
@@ -54,3 +61,4 @@ h1 {
 }
 
 
+/*Vue styles*/
