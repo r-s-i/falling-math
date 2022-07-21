@@ -7,21 +7,24 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Math From Heaven</title>
-  <meta name="description" content="Memory game with three different difficulty settings. Find the panes that match.">
-  <meta name="keywords" content="game, memory, free, brain training">
+  <title>Falling Math</title>
+  <meta name="description" content="Math game with an increasing level of difficulty settings. How high level can you reach?">
+  <meta name="keywords" content="game, math, free, brain training">
 
   <link rel="stylesheet" href="reset.css">
   <link rel="stylesheet" href="style.css">
   <script src="https://unpkg.com/vue@3"></script>
   <script src="./app.js" defer></script>
 </head>
-<body>
+<body >
+  
   <main id="grid-container">
     <header>
-      <h1>Math From Heaven</h1>
+      <h1>Falling Math</h1>
       <p>Level: {{level}}</p>
       <p>Points: {{points}}</p>
+      <p v-if="lives!==1">Lives: {{lives}}</p>
+      <p v-else>Life: {{lives}}</p>
     </header>
     <section id="game-area">
       <section class="row">
@@ -39,48 +42,47 @@
         </section>
       </section>
       <section class="row">
-        <section>
+        <section :class="[{ lightRed: panesArray[4] !== '' && !isDone }]" @click="reloads = true">
           {{panesArray[4]}}
         </section>
-        <section>
+        <section :class="[{ lightRed: panesArray[5] !== '' && !isDone }]">
           {{panesArray[5]}}
         </section>
-        <section>
+        <section :class="[{ lightRed: panesArray[6] !== '' && !isDone }]">
           {{panesArray[6]}}
         </section>
-        <section>
+        <section :class="[{ lightRed: panesArray[7] !== '' && !isDone }]">
           {{panesArray[7]}}
         </section>
       </section>
       <section class="row">
-        <section>
+        <section :class="[{ red: panesArray[8] !== '' }]">
           {{panesArray[8]}}
         </section>
-        <section>
+        <section :class="[{ red: panesArray[9] !== '' }]">
           {{panesArray[9]}}
         </section>
-        <section>
+        <section :class="[{ red: panesArray[10] !== '' }]">
           {{panesArray[10]}}
         </section>
-        <section>
+        <section :class="[{ red: panesArray[11] !== '' }]">
           {{panesArray[11]}}
         </section>
       </section>
       <section class="row">
-        <section  @click="checkAnswer(answersArray[0])">
+        <section  @click="checkAnswer(answersArray[0])" :class="{ green: isActive }">
           {{answersArray[0]}}
         </section>
-        <section @click="checkAnswer(answersArray[1])">
+        <section @click="checkAnswer(answersArray[1])" :class="{ green: isActive }">
           {{answersArray[1]}}
         </section>
-        <section @click="checkAnswer(answersArray[2])">
+        <section @click="checkAnswer(answersArray[2])" :class="{ green: isActive }">
           {{answersArray[2]}}
         </section>
-        <section @click="checkAnswer(answersArray[3])">
+        <section @click="checkAnswer(answersArray[3])" :class="{ green: isActive }">
           {{answersArray[3]}}
         </section>
       </section>
-
     </section>
     <a href="../index.html" id="footer">
       <footer>

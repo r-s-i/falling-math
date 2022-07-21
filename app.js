@@ -1,4 +1,9 @@
-const { createApp } = Vue
+/*
+TODO:
+- Make answers to division problems have more than one decimal alternative.
+*/
+
+const { createApp } = Vue;
 
 createApp({
   data() {
@@ -15,7 +20,12 @@ createApp({
       problem: "",
       points: 0,
       level: 0,
+      lives: 3,
       timeCreated: Date.now(),
+      intervalID: 0,
+      isActive: false,
+      isDone: false,
+      reloads: false,
     }
   },
   methods: {
@@ -54,6 +64,9 @@ createApp({
         case 30:
           this.level = 10;
           break;
+        case 33:
+            this.level = 11;
+            break;          
         default:
           this.level = this.level;
           break;               
@@ -67,60 +80,100 @@ createApp({
           this.makeProblem();
         }
       }
-      this.setLevel();
-      if (this.level === 0) {
-        let int1 = Math.floor(Math.random()*10);
-        let int2 = Math.floor(Math.random()*10);          
+      const reduceDifficultyOfMultipication = (answer, number) => {
+        if (answer > number) {          
+          this.makeProblem();
+        }
+      }
+      this.setLevel(); 
+      let int1 = Math.floor(Math.random()*9) + 1;
+      let int2 = Math.floor(Math.random()*9) + 1;       
+      let int3 = Math.floor(Math.random()*9) + 1;    
+      let int4 = Math.floor(Math.random()*9) + 1; 
+      if (this.level === 0) {       
         this.problem = `${int1} + ${int2}`;
         this.answer = int1 + int2;
       } 
-      else if (this.level === 1) {
-        let int1 = Math.floor(Math.random()*10);
-        let int2 = Math.floor(Math.random()*10);       
-        let int3 = Math.floor(Math.random()*10);          
+      else if (this.level === 1) {        
         this.problem = `${int1} + ${int2} + ${int3}`;
         this.answer = int1 + int2 + int3;
       }
-      else if (this.level === 2) {
-        let int1 = Math.floor(Math.random()*10);
-        let int2 = Math.floor(Math.random()*10);                 
+      else if (this.level === 2) {             
         this.problem = `${int1} x ${int2}`;
         this.answer = int1 * int2;
       }
-      else if (this.level === 3) {
-        let int1 = Math.floor(Math.random()*10);
-        let int2 = Math.floor(Math.random()*10);
-        let int3 = Math.floor(Math.random()*10);                 
+      else if (this.level === 3) {              
         this.problem = `${int1} x ${int2} x ${int3}`;
         this.answer = int1 * int2 * int3;
+        reduceDifficultyOfMultipication(this.answer, 150)
       }
       else if (this.level === 4) {
-        let int1 = Math.floor(Math.random()*10);
-        let int2 = Math.floor(Math.random()*10);
-        let int3 = Math.floor(Math.random()*10);
         const isMultiSignFirst = .5 <= Math.random(); 
         if (isMultiSignFirst) {
-          this.problem = `${int1} x ${int2} / ${int3}`;
-          this.answer = int1 * int2 / int3;
-
-          minimizeTo2DecimalPlaces(this.answer)
+          this.problem = `${int1} x ${int2} + ${int3}`;
+          this.answer = int1 * int2 + int3;
         }   
         else {
-          this.problem = `${int1} / ${int2} x ${int3}`;
-          this.answer = int1 / int2 * int3;
-
-          minimizeTo2DecimalPlaces(this.answer)
-        }               
-        
- 
+          this.problem = `${int1} + ${int2} x ${int3}`;
+          this.answer = int1 + int2 * int3;
+        }                
       }
-
+      else if (this.level === 5) {         
+        this.problem = `${int1} - ${int2}`;
+        this.answer = int1 - int2;
+      }
+      else if (this.level === 6) {        
+        this.problem = `${int1} - ${int2} - ${int3}`;
+        this.answer = int1 - int2 - int3;
+      }
+      else if (this.level === 7) {        
+        this.problem = `${int1} / ${int2}`;
+        this.answer = int1 / int2;
+        minimizeTo2DecimalPlaces(this.answer);
+      }
+      else if (this.level === 8) {       
+        this.problem = `${int1} / ${int2} / ${int3}`;
+        this.answer = int1 / int2 / int3;
+        minimizeTo2DecimalPlaces(this.answer);
+      }      
+      else if (this.level === 9) {       
+        const isDiviSignFirst = .5 <= Math.random(); 
+        if (isDiviSignFirst) {
+          this.problem = `${int1} / ${int2} - ${int3}`;
+          this.answer = int1 / int2 - int3;
+          minimizeTo2DecimalPlaces(this.answer);
+        }   
+        else {
+          this.problem = `${int1} - ${int2} / ${int3}`;
+          this.answer = int1 - int2 / int3;
+          minimizeTo2DecimalPlaces(this.answer);
+        }   
+      }
+      else if (this.level === 10) {       
+        const operations = ["/", "*", "-", "+"];
+        const randomOperations = []
+        while(randomOperations.length < 3) {
+          randomOperations.push(operations[Math.floor(Math.random()*4)]);
+        }
+        this.problem = `${int1} ${randomOperations[0]} ${int2} ${randomOperations[1]} ${int3} ${randomOperations[2]} ${int4}`;
+        this.answer = eval(this.problem);    
+        minimizeTo2DecimalPlaces(this.answer);
+        this.problem = this.problem.replaceAll("*", "x"); 
+      }
+      else {
+        clearInterval(this.intervalID);
+        console.log("id:", this.intervalID);
+        this.reset();
+        this.message();
+      }
+      console.log(this.answer)
+      
       return this.answer;
 
     },
     placeProblem(row) {
       let randomIndex;
-      // Helper functions:
+     
       const isTheRowClear = (pane0, pane1, pane2, pane3) => {
         return this.panesArray[pane0]==="" && this.panesArray[pane1]==="" && this.panesArray[pane2]===""&& this.panesArray[pane3]==="";
       }
@@ -148,8 +201,18 @@ createApp({
     },
     placeAnswers(answer) {
       this.answer = answer;
-      const arrayToFill = [...this.answersArray];
-      const answers = [answer, answer + 1, Math.floor(answer / 2), Math.floor(answer * 2)];
+      let answers = [];
+      const isDecimal = answer.toString().includes(".");
+      if (this.answer === 0) {
+        answers = [answer, 1, -1, 2];
+      }
+      else if (isDecimal) {
+        answers = [answer.toFixed(2), (answer + (Math.random() <= .5 ? 2 : -2)).toFixed(2), (answer / 2).toFixed(2), (answer * 2).toFixed(2)];
+      }
+      else{
+        answers = [answer, Math.round(answer + (Math.random() <= .5 ? 2 : -2)), Math.round(answer / 2), Math.round(answer * 2)];
+      }
+      
       while(answers.length > 0) {
         const randomIndex = Math.floor(Math.random()*4);
         if (this.answersArray[randomIndex] === "") {
@@ -158,14 +221,14 @@ createApp({
       }
     },
     checkAnswer(answer) {
-      if (answer === this.answer) {
+      if (answer === this.answer || answer === this.answer.toFixed(2)) {
         this.points++;
         this.reset();
-        console.log(this.points);
       }
       else {
         this.points--;
-        console.log("wrong");
+        this.lives--;
+        this.reset();
       }
     },
     reset() {
@@ -179,28 +242,59 @@ createApp({
       this.answersArePlaced = false;
       this.timeCreated = Date.now();
     },
-    update() {
+    update() {      
+      if (this.reloads && this.isDone) {
+        location.reload();
+      }
+      if (this.isDone) {
+        return;
+      }
+      if (this.lives < 1) {
+        location.reload();
+        return;
+      }
       if(!this.answersArePlaced) {
         this.placeAnswers(this.makeProblem());
         this.answersArePlaced = true;
-        var intervalID = setInterval(this.update, 500);
-      }      
+        this.intervalID = setInterval(this.update, 500);
+        
+      }   
       if (this.elapsedTime < 3000) {
-        this.placeProblem(0)
+        this.placeProblem(0);
+        this.isActive = false;
       }
       else if (this.elapsedTime < 6000) {
-        this.placeProblem(1)
+        this.placeProblem(1);
       }
       else if (this.elapsedTime < 9000) {
-        this.placeProblem(2)
+        this.placeProblem(2);
       }
-      else {
-        clearInterval(intervalID);
+      else if (this.elapsedTime < 10000) {
+        this.isActive = true;
+        this.panesArray = [
+          "", "" , "" , "",
+          "", "" , "" , "",
+          "", "" , "" , "",
+        ]
+      }
+      else {        
+        clearInterval(this.intervalID);
+        this.lives--;
         this.reset();
         this.update();
       }
       this.elapsedTime = Date.now() - this.timeCreated;
-    }
+    },
+    message() {
+      this.isDone = true;
+      this.reset();
+      this.panesArray = [
+        "You", "won!" , "Tap" , "on",
+        "RESET", "to" , "play" , "again",
+        "", "" , "" , "",
+      ]
+      clearInterval(this.intervalID);
+    },
   },
 
   created() {

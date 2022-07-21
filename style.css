@@ -1,22 +1,27 @@
-* {
-  border: 1px solid black;
-}
-
 body {
-  background: rgb(111, 111, 111); /*Delete or changewhen done*/
+  background-color: black;
+  color: whitesmoke
+}
+:link {
+  color: yellow;
+}
+:visited {
+  color: seagreen;
 }
 header {
   grid-area: header;
   display: grid;
-  justify-content: center;
-  align-items: center;
   width: 90vw;
   max-width: 500px;
   text-align: center;
   min-height: 10vh;
 }
 h1 {
-  margin: 0;
+  margin: 0; 
+}
+p {
+  text-align: right;
+  margin-right: 3px;
 }
 
 #footer {
@@ -25,12 +30,15 @@ h1 {
   justify-content: center;
   align-items: center;
   min-height: 10vh;
+  font-size: 24px;
 }
 
 #game-area {
   grid-area: gameArea;
   display: grid;
   min-height: 60vh;
+  border-top: 1px solid whitesmoke;
+  border-right: 1px solid whitesmoke;
 }
 .row {
   display: flex;
@@ -42,7 +50,10 @@ h1 {
   display: grid;
   justify-content: center;
   align-items: center;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  border-bottom: 1px solid whitesmoke;
+  border-left: 1px solid whitesmoke;
 }
 
 
@@ -62,3 +73,19 @@ h1 {
 
 
 /*Vue styles*/
+.lightRed {
+  background-color: rgba(255, 0, 0, 0.20);
+}
+.red {
+  background-color: rgba(255, 0, 0, 0.40);
+}
+
+.green {
+  animation: fadeOut 1s 1;
+ 
+}
+
+@keyframes fadeOut {
+  0% { background-color: rgba(255, 0, 0, 0.4);}
+  100% {background-color: rgba(0, 0, 0, 0);} 
+} 
