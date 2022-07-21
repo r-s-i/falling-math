@@ -56,7 +56,6 @@ p {
   border-left: 1px solid whitesmoke;
 }
 
-
 #grid-container {
   display: grid;
   justify-content: center;
@@ -70,7 +69,6 @@ p {
   grid-gap: 1vh;
   min-height: 90vh;
 }
-
 
 /*Vue styles*/
 .lightRed {

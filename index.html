@@ -13,18 +13,22 @@
 
   <link rel="stylesheet" href="reset.css">
   <link rel="stylesheet" href="style.css">
-  <script src="https://unpkg.com/vue@3"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
   <script src="./app.js" defer></script>
 </head>
 <body >
   
   <main id="grid-container">
-    <header>
+    <header v-if="!isDone">
       <h1>Falling Math</h1>
-      <p>Level: {{level}}</p>
+      <p>Level: {{level}} </p>
       <p>Points: {{points}}</p>
       <p v-if="lives!==1">Lives: {{lives}}</p>
       <p v-else>Life: {{lives}}</p>
+    </header>
+    <header v-else>
+      <h1>Falling Math</h1>
+      <p>Points: {{points}}</p>
     </header>
     <section id="game-area">
       <section class="row">
@@ -71,16 +75,16 @@
       </section>
       <section class="row">
         <section  @click="checkAnswer(answersArray[0])" :class="{ green: isActive }">
-          {{answersArray[0]}}
+          {{!isDone ? answersArray[0] : ""}}
         </section>
         <section @click="checkAnswer(answersArray[1])" :class="{ green: isActive }">
-          {{answersArray[1]}}
+          {{!isDone ? answersArray[1] : ""}}
         </section>
         <section @click="checkAnswer(answersArray[2])" :class="{ green: isActive }">
-          {{answersArray[2]}}
+          {{!isDone ? answersArray[2] : ""}}
         </section>
         <section @click="checkAnswer(answersArray[3])" :class="{ green: isActive }">
-          {{answersArray[3]}}
+          {{!isDone ? answersArray[3] : ""}}
         </section>
       </section>
     </section>

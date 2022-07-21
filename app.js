@@ -1,8 +1,3 @@
-/*
-TODO:
-- Make answers to division problems have more than one decimal alternative.
-*/
-
 const { createApp } = Vue;
 
 createApp({
@@ -105,7 +100,7 @@ createApp({
       else if (this.level === 3) {              
         this.problem = `${int1} x ${int2} x ${int3}`;
         this.answer = int1 * int2 * int3;
-        reduceDifficultyOfMultipication(this.answer, 150)
+        reduceDifficultyOfMultipication(this.answer, 150);
       }
       else if (this.level === 4) {
         const isMultiSignFirst = .5 <= Math.random(); 
@@ -151,7 +146,7 @@ createApp({
       }
       else if (this.level === 10) {       
         const operations = ["/", "*", "-", "+"];
-        const randomOperations = []
+        const randomOperations = [];
         while(randomOperations.length < 3) {
           randomOperations.push(operations[Math.floor(Math.random()*4)]);
         }
@@ -162,12 +157,10 @@ createApp({
       }
       else {
         clearInterval(this.intervalID);
-        console.log("id:", this.intervalID);
         this.reset();
         this.message();
       }
-      console.log(this.answer)
-      
+      console.log(this.answer);
       return this.answer;
 
     },
@@ -189,7 +182,7 @@ createApp({
         this.panesArray[randomIndex] = this.problem; 
       }
       else if (row === 1 && isTheRowClear(4,5,6,7)) {
-        clearPreviousRow(0,1,2,3)
+        clearPreviousRow(0,1,2,3);
         randomIndex = Math.floor(Math.random()*4)+4;
         this.panesArray[randomIndex] = this.problem; 
       }
@@ -209,7 +202,7 @@ createApp({
       else if (isDecimal) {
         answers = [answer.toFixed(2), (answer + (Math.random() <= .5 ? 2 : -2)).toFixed(2), (answer / 2).toFixed(2), (answer * 2).toFixed(2)];
       }
-      else{
+      else {
         answers = [answer, Math.round(answer + (Math.random() <= .5 ? 2 : -2)), Math.round(answer / 2), Math.round(answer * 2)];
       }
       
@@ -221,6 +214,7 @@ createApp({
       }
     },
     checkAnswer(answer) {
+      if (this.isDone) return;
       if (answer === this.answer || answer === this.answer.toFixed(2)) {
         this.points++;
         this.reset();
@@ -275,7 +269,7 @@ createApp({
           "", "" , "" , "",
           "", "" , "" , "",
           "", "" , "" , "",
-        ]
+        ];
       }
       else {        
         clearInterval(this.intervalID);
@@ -287,19 +281,19 @@ createApp({
     },
     message() {
       this.isDone = true;
-      this.reset();
+      this.reset();      
       this.panesArray = [
         "You", "won!" , "Tap" , "on",
-        "RESET", "to" , "play" , "again",
+        "RESET", "to" , "play" , "again.",
         "", "" , "" , "",
-      ]
+      ];
       clearInterval(this.intervalID);
     },
   },
 
   created() {
-    this.update()
+    this.update();
   },
 
 
-}).mount('#grid-container')
+}).mount('#grid-container');
