@@ -54,6 +54,7 @@ p {
   font-weight: 700;
   border-bottom: 1px solid whitesmoke;
   border-left: 1px solid whitesmoke;
+  padding: 4px;
 }
 
 #grid-container {

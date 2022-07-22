@@ -1,9 +1,3 @@
-/* TODOs:
-  - line 154: substitute eval()
-  - line 163: Remove console.log()
-  - line 203 & 206: .5 to 0.5
-*/
-
 const { createApp } = Vue;
 
 createApp({
@@ -151,22 +145,37 @@ createApp({
         }   
       }
       else if (this.level === 10) {       
-        const operations = ["/", "*", "-", "+"];
+        const operations = ["/", "x", "-", "+"];
         const randomOperations = [];
         while(randomOperations.length < 3) {
           randomOperations.push(operations[Math.floor(Math.random()*4)]);
         }
-        this.problem = `${int1} ${randomOperations[0]} ${int2} ${randomOperations[1]} ${int3} ${randomOperations[2]} ${int4}`;
-        this.answer = eval(this.problem);    
+        this.problem = `((${int1} ${randomOperations[0]} ${int2}) ${randomOperations[1]} ${int3}) ${randomOperations[2]} ${int4}`;
+
+        const numbers = [int2, int3, int4]
+        this.answer = int1;
+        for (let i = 0; i < 3; i++) {
+          if (randomOperations[i] === "/") {
+            this.answer /= numbers[i];
+          }
+          else if (randomOperations[i] === "x") {
+            this.answer *= numbers[i];
+          }
+          else if (randomOperations[i] === "-") {
+            this.answer -= numbers[i];
+          }
+          else if (randomOperations[i] === "+") {
+            this.answer += numbers[i];
+          }                              
+        }
+        
         minimizeTo2DecimalPlaces(this.answer);
-        this.problem = this.problem.replaceAll("*", "x"); 
       }
       else {
         clearInterval(this.intervalID);
         this.reset();
         this.message();
-      }
-      console.log(this.answer);
+      }    
       return this.answer;
 
     },
@@ -206,10 +215,10 @@ createApp({
         answers = [answer, 1, -1, 2];
       }
       else if (isDecimal) {
-        answers = [answer.toFixed(2), (answer + (Math.random() <= .5 ? 2 : -2)).toFixed(2), (answer / 2).toFixed(2), (answer * 2).toFixed(2)];
+        answers = [answer.toFixed(2), (answer + (Math.random() <= 0.5 ? 2 : -2)).toFixed(2), (answer / 2).toFixed(2), (answer * 2).toFixed(2)];
       }
       else {
-        answers = [answer, Math.round(answer + (Math.random() <= .5 ? 2 : -2)), Math.round(answer / 2), Math.round(answer * 2)];
+        answers = [answer, Math.round(answer + (Math.random() <= 0.5 ? 2 : -2)), Math.round(answer / 2), Math.round(answer * 2)];
       }
       
       while(answers.length > 0) {
