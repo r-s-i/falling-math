@@ -1,3 +1,9 @@
+/* TODOs:
+  - line 154: substitute eval()
+  - line 163: Remove console.log()
+  - line 203 & 206: .5 to 0.5
+*/
+
 const { createApp } = Vue;
 
 createApp({
