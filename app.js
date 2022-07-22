@@ -21,7 +21,7 @@ createApp({
       isActive: false,
       isDone: false,
       reloads: false,
-    }
+    };
   },
   methods: {
     setLevel() {
@@ -74,12 +74,12 @@ createApp({
         if (answerAsString.length - index - 1 > 2) {
           this.makeProblem();
         }
-      }
+      };
       const reduceDifficultyOfMultipication = (answer, number) => {
         if (answer > number) {          
           this.makeProblem();
         }
-      }
+      };
       this.setLevel(); 
       let int1 = Math.floor(Math.random()*9) + 1;
       let int2 = Math.floor(Math.random()*9) + 1;       
@@ -103,7 +103,7 @@ createApp({
         reduceDifficultyOfMultipication(this.answer, 150);
       }
       else if (this.level === 4) {
-        const isMultiSignFirst = .5 <= Math.random(); 
+        const isMultiSignFirst = 0.5 <= Math.random(); 
         if (isMultiSignFirst) {
           this.problem = `${int1} x ${int2} + ${int3}`;
           this.answer = int1 * int2 + int3;
@@ -132,7 +132,7 @@ createApp({
         minimizeTo2DecimalPlaces(this.answer);
       }      
       else if (this.level === 9) {       
-        const isDiviSignFirst = .5 <= Math.random(); 
+        const isDiviSignFirst = 0.5 <= Math.random(); 
         if (isDiviSignFirst) {
           this.problem = `${int1} / ${int2} - ${int3}`;
           this.answer = int1 / int2 - int3;
@@ -152,7 +152,7 @@ createApp({
         }
         this.problem = `((${int1} ${randomOperations[0]} ${int2}) ${randomOperations[1]} ${int3}) ${randomOperations[2]} ${int4}`;
 
-        const numbers = [int2, int3, int4]
+        const numbers = [int2, int3, int4];
         this.answer = int1;
         for (let i = 0; i < 3; i++) {
           if (randomOperations[i] === "/") {
