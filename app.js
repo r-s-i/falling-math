@@ -1,3 +1,9 @@
+/*
+  - Reset without relaying on loaction.reload().
+  - Increase levels to 20.
+*/
+
+
 const { createApp } = Vue;
 
 createApp({
@@ -5,9 +11,7 @@ createApp({
     return {
       answersArray: ["","","",""],
       panesArray: [
-        "", "" , "" , "",
-        "", "" , "" , "",
-        "", "" , "" , "",
+        "", "" , ""
       ],
       elapsedTime: 0,
       answersArePlaced: false,
@@ -176,35 +180,28 @@ createApp({
         this.reset();
         this.message();
       }    
+      // console.log(this.answer);
       return this.answer;
 
     },
     placeProblem(row) {
-      let randomIndex;
-     
-      const isTheRowClear = (pane0, pane1, pane2, pane3) => {
-        return this.panesArray[pane0]==="" && this.panesArray[pane1]==="" && this.panesArray[pane2]===""&& this.panesArray[pane3]==="";
+      const isTheRowClear = (pane0) => {
+        return this.panesArray[pane0]==="";
       }
-      const clearPreviousRow = (pane0, pane1, pane2, pane3) => {
+      const clearPreviousRow = (pane0) => {
         this.panesArray[pane0]="";
-        this.panesArray[pane1]="";
-        this.panesArray[pane2]="";
-        this.panesArray[pane3]="";
       }
 
-      if (row === 0 && isTheRowClear(0,1,2,3)) {
-        randomIndex = Math.floor(Math.random()*4);
-        this.panesArray[randomIndex] = this.problem; 
+      if (row === 0 && isTheRowClear(0)) {
+        this.panesArray[0] = this.problem; 
       }
-      else if (row === 1 && isTheRowClear(4,5,6,7)) {
-        clearPreviousRow(0,1,2,3);
-        randomIndex = Math.floor(Math.random()*4)+4;
-        this.panesArray[randomIndex] = this.problem; 
+      else if (row === 1 && isTheRowClear(1)) {
+        clearPreviousRow(0);
+        this.panesArray[1] = this.problem; 
       }
-      else if (row === 2 && isTheRowClear(8,9,10,11)) {
-        clearPreviousRow(4,5,6,7);
-        randomIndex = Math.floor(Math.random()*4)+8;
-        this.panesArray[randomIndex] = this.problem; 
+      else if (row === 2 && isTheRowClear(2)) {
+        clearPreviousRow(1);
+        this.panesArray[2] = this.problem; 
       }
     },
     placeAnswers(answer) {
@@ -243,9 +240,7 @@ createApp({
     reset() {
       this.answersArray = ["","","",""];
       this.panesArray = [
-        "", "" , "" , "",
-        "", "" , "" , "",
-        "", "" , "" , "",
+        "", "" , ""
       ];
       this.elapsedTime = 0;
       this.answersArePlaced = false;
@@ -280,11 +275,7 @@ createApp({
       }
       else if (this.elapsedTime < 10000) {
         this.isActive = true;
-        this.panesArray = [
-          "", "" , "" , "",
-          "", "" , "" , "",
-          "", "" , "" , "",
-        ];
+        this.panesArray = ["", "" , ""];
       }
       else {        
         clearInterval(this.intervalID);
@@ -298,9 +289,8 @@ createApp({
       this.isDone = true;
       this.reset();      
       this.panesArray = [
-        "You", "won!" , "Tap" , "on",
-        "RESET", "to" , "play" , "again.",
-        "", "" , "" , "",
+        "You Won! Tap on",
+        "RESET", "to play again"
       ];
       clearInterval(this.intervalID);
     },

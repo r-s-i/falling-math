@@ -45,7 +45,7 @@ p {
   flex-wrap: nowrap;
 }
 .row > section {
-  width: 25%;
+  width: 100%;
   min-height: 15vh;
   display: grid;
   justify-content: center;
