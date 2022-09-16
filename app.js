@@ -176,14 +176,13 @@ createApp({
         minimizeTo2DecimalPlaces(this.answer);
       }
       else {
-        clearInterval(this.intervalID);
-        this.reset();
-        this.message();
+        this.message(true); // resets the game
       }    
-      // console.log(this.answer);
+      console.log(this.answer);
       return this.answer;
 
     },
+
     placeProblem(row) {
       const isTheRowClear = (pane0) => {
         return this.panesArray[pane0]==="";
@@ -204,6 +203,7 @@ createApp({
         this.panesArray[2] = this.problem; 
       }
     },
+
     placeAnswers(answer) {
       this.answer = answer;
       let answers = [];
@@ -225,6 +225,7 @@ createApp({
         }
       }
     },
+
     checkAnswer(answer) {
       if (this.isDone) return;
       if (answer === this.answer || answer === this.answer.toFixed(2)) {
@@ -237,16 +238,16 @@ createApp({
         this.reset();
       }
     },
+
     reset() {
       this.answersArray = ["","","",""];
-      this.panesArray = [
-        "", "" , ""
-      ];
+      this.panesArray = ["", "" , ""];
       this.elapsedTime = 0;
       this.answersArePlaced = false;
       this.timeCreated = Date.now();
     },
-    update() {      
+
+    update() {     
       if (this.reloads && this.isDone) {
         location.reload();
       }
@@ -254,8 +255,7 @@ createApp({
         return;
       }
       if (this.lives < 1) {
-        location.reload();
-        return;
+        this.message(false);
       }
       if(!this.answersArePlaced) {
         this.placeAnswers(this.makeProblem());
@@ -285,17 +285,23 @@ createApp({
       }
       this.elapsedTime = Date.now() - this.timeCreated;
     },
-    message() {
+    message(hasWon) {
       this.isDone = true;
-      this.reset();      
-      this.panesArray = [
-        "You Won! Tap on",
-        "RESET", "to play again"
-      ];
-      clearInterval(this.intervalID);
+      if (hasWon) {
+        this.panesArray = [
+          "You Won! Tap on",
+          "RESET", "to play again"
+        ];
+      }   
+      else {
+        this.panesArray = [
+          "You lost! Tap on",
+          "RESET", "to play again"
+        ];        
+      }   
+      
     },
   },
-
   created() {
     this.update();
   },
