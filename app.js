@@ -1,9 +1,7 @@
 /*
-  - Reset without relaying on loaction.reload().
+ -  Move makeProblem to its own loaction.
   - Increase levels to 20.
 */
-
-
 const { createApp } = Vue;
 
 createApp({
@@ -65,7 +63,10 @@ createApp({
           break;
         case 33:
             this.level = 11;
-            break;          
+            break;
+        case 36:
+          this.level = 12;
+          break;                               
         default:
           this.level = this.level;
           break;               
@@ -174,6 +175,10 @@ createApp({
         }
         
         minimizeTo2DecimalPlaces(this.answer);
+      }
+      else if (this.level === 11) {
+        this.problem = `${int1}^2`;
+        this.answer = int1**2;
       }
       else {
         this.message(true); // resets the game
