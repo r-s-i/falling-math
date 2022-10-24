@@ -178,7 +178,7 @@ createApp({
       }
       else if (this.level === 11) {
         this.problem = `${int1}^2`;
-        this.answer = int1**2;
+        this.answer = int1*int1;
       }
       else {
         this.message(true); // resets the game
@@ -254,7 +254,9 @@ createApp({
 
     update() {     
       if (this.reloads && this.isDone) {
+        this.isDone = false;
         location.reload();
+        return;
       }
       if (this.isDone) {
         return;
@@ -304,7 +306,7 @@ createApp({
           "RESET", "to play again"
         ];        
       }   
-      
+ 
     },
   },
   created() {
