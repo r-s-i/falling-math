@@ -2,7 +2,7 @@
 ## A math game where your worst enemy is time
 
 ### What the Project Does
-This is a math game consisting of 11 playable levels (0-10). 
+This is a math game consisting of 12 playable levels (0-11). 
 Three correct answers advances the player to the next level.
 Each level is either harder than the previous one, or using one or more different operation.
 For example, going from calculating the product of two integers to three.
