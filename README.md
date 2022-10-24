@@ -16,5 +16,5 @@ And I assume it can be of similar benefit to others.
 
 ### Where users can get help with the project
 The most obvious improvment is adding more levels.
-I'm thinking level 11-21 could be a copy of 0-10, but using integers that are two digits long.
-Or they might ask for the square root of a integer, and the result of an exponentiation.
+The next levels could be a copy of 0-10, but using integers that are two digits long.
+Or they might ask for the square root of a integer.
