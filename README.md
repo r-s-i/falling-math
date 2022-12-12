@@ -14,7 +14,8 @@ And I assume it can be of similar benefit to others.
 ### How users can get started with the project
 [The game is playable here](https://robiniversen.com/falling-math/index.html).
 
-### Where users can get help with the project
 The most obvious improvment is adding more levels.
 The next levels could be a copy of 0-10, but using integers that are two digits long.
 Or they might ask for the square root of a integer.
+
+[comment]: <> (### Where users can get help with the project)
